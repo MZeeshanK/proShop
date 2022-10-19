@@ -5,6 +5,9 @@ import { Container } from 'react-bootstrap';
 import Home from './screens/Home';
 import Product from './screens/Product';
 import Cart from './screens/Cart';
+import Login from './screens/Login';
+import Register from './screens/Register';
+import Profile from './screens/Profile';
 
 function App() {
   return (
@@ -13,10 +16,13 @@ function App() {
       <main className="py-3">
         <Container>
           <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/products/:id" element={<Product />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/cart/:id" element={<Cart />} />
+            <Route path="/products/:id" element={<Product />} />
+            <Route exact path="/" element={<Home />} />
           </Routes>
         </Container>
       </main>

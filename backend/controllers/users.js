@@ -59,7 +59,7 @@ export const register = asyncHandler(async (req, res) => {
 });
 
 // @desc    get user profile
-// @route   GET /api/users/login
+// @route   GET /api/users/profile
 // @access  PRIVATE
 export const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
@@ -71,6 +71,36 @@ export const getUserProfile = asyncHandler(async (req, res) => {
       name,
       email,
       isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+// @desc    update user profile
+// @route   PUT /api/users/profile
+// @access  PRIVATE
+export const updateUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    const { _id, name, password, email, isAdmin } = updatedUser;
+
+    res.json({
+      name,
+      email,
+      password,
+      isAdmin,
+      token: generateToken(_id),
     });
   } else {
     res.status(404);
