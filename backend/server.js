@@ -3,6 +3,7 @@ import colors from 'colors';
 import dotenv from 'dotenv';
 import products from './routes/products.js';
 import users from './routes/users.js';
+import orders from './routes/orders.js';
 import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/error.js';
 
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/products', products);
 app.use('/api/users', users);
+app.use('/api/orders', orders);
 
 app.use(notFound);
 app.use(errorHandler);
