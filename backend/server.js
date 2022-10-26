@@ -23,6 +23,10 @@ app.use('/api/products', products);
 app.use('/api/users', users);
 app.use('/api/orders', orders);
 
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_SECRET)
+);
+
 app.use(notFound);
 app.use(errorHandler);
 
