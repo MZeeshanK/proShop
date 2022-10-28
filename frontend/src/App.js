@@ -36,10 +36,20 @@ function App() {
             <Route path="/cart/:id" element={<Cart />} />
             <Route path="/products/:id" element={<Product />} />
             <Route path="/admin/productlist" element={<ProductList />} />
+            <Route
+              path="/admin/productlist/:pageNumber"
+              element={<ProductList />}
+            />
             <Route path="/admin/product/:id/edit" element={<ProductEdit />} />
             <Route path="/admin/userlist" element={<UserList />} />
             <Route path="/admin/user/:id/edit" element={<UserEdit />} />
             <Route path="/admin/orderlist" element={<OrderList />} />
+            <Route path="/search/:keyword" element={<Home />} />
+            <Route path="/page/:pageNumber" element={<Home />} />
+            <Route
+              path="/search/:keyword/page/:pageNumber"
+              element={<Home />}
+            />
             <Route exact path="/" element={<Home />} />
           </Routes>
         </Container>

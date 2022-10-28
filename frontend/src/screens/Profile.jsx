@@ -8,6 +8,7 @@ import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { listMyOrders } from '../actions/orderActions';
 import { FaTimes } from 'react-icons/fa';
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userContants';
 
 const Profile = () => {
   const [name, setName] = useState('');
@@ -35,7 +36,8 @@ const Profile = () => {
     if (!userInfo) {
       navigate('/login');
     } else {
-      if (!user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails('profile'));
         dispatch(listMyOrders());
       } else {
@@ -43,7 +45,7 @@ const Profile = () => {
         setEmail(user.email);
       }
     }
-  }, [dispatch, navigate, userInfo, user]);
+  }, [dispatch, navigate, userInfo, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();

@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 import colors from 'colors';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -13,6 +14,10 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // BODY Parser
 app.use(express.json());
