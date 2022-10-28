@@ -12,6 +12,11 @@ import Shipping from './screens/Shipping';
 import Payment from './screens/Payment';
 import PlaceOrder from './screens/PlaceOrder';
 import Order from './screens/Order';
+import UserList from './screens/UserList';
+import UserEdit from './screens/UserEdit';
+import ProductList from './screens/ProductList';
+import ProductEdit from './screens/ProductEdit';
+import OrderList from './screens/OrderList';
 
 function App() {
   return (
@@ -30,6 +35,11 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/cart/:id" element={<Cart />} />
             <Route path="/products/:id" element={<Product />} />
+            <Route path="/admin/productlist" element={<ProductList />} />
+            <Route path="/admin/product/:id/edit" element={<ProductEdit />} />
+            <Route path="/admin/userlist" element={<UserList />} />
+            <Route path="/admin/user/:id/edit" element={<UserEdit />} />
+            <Route path="/admin/orderlist" element={<OrderList />} />
             <Route exact path="/" element={<Home />} />
           </Routes>
         </Container>
