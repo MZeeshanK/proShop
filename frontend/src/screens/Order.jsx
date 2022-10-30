@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { PayPalButton } from 'react-paypal-button-v2';
+import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +23,7 @@ const Order = () => {
   const { id } = useParams();
 
   const [sdkReady, setSdkReady] = useState(false);
+  const [clientId, setClientId] = useState('');
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
@@ -53,7 +54,8 @@ const Order = () => {
       navigate('/login');
     }
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get('/api/config/paypal');
+      const { data } = await axios.get('/api/config/paypal');
+      setClientId(data);
 
       const script = document.createElement('script');
       script.type = 'text/javascript';
@@ -77,7 +79,16 @@ const Order = () => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, navigate, id, success, order, successDeliver, userInfo]);
+  }, [
+    dispatch,
+    navigate,
+    id,
+    success,
+    order,
+    successDeliver,
+    userInfo,
+    clientId,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(id, paymentResult));
@@ -216,10 +227,20 @@ const Order = () => {
                   {!sdkReady ? (
                     <Loader />
                   ) : (
-                    <PayPalButton
-                      amount={order.totalPrice}
-                      onSuccess={successPaymentHandler}
-                    ></PayPalButton>
+                    <PayPalScriptProvider options={{ 'client-id': clientId }}>
+                      <PayPalButtons
+                        createOrder={(data, actions) => {
+                          return actions.order.create({
+                            purchase_units: [
+                              {
+                                amount: { value: order.totalPrice },
+                              },
+                            ],
+                          });
+                        }}
+                        onApprove={successPaymentHandler}
+                      />
+                    </PayPalScriptProvider>
                   )}
                 </ListGroup.Item>
               )}
