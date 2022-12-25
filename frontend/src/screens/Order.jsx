@@ -54,7 +54,7 @@ const Order = () => {
       navigate('/login');
     }
     const addPayPalScript = async () => {
-      const { data } = await axios.get('/api/config/paypal');
+      const { data } = await axios.get(`${URL}/api/config/paypal`);
       setClientId(data);
 
       const script = document.createElement('script');

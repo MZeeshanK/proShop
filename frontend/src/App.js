@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     const generateId = async () => {
-      const { data } = await axios.get('/api/config/paypal');
+      const { data } = await axios.get(`${URL}/api/config/paypal`);
 
       setClientId(data);
     };

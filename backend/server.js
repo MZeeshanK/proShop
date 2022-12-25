@@ -9,6 +9,7 @@ import orders from './routes/orders.js';
 import upload from './routes/upload.js';
 import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/error.js';
+import cors from 'cors';
 
 dotenv.config();
 connectDB();
@@ -21,6 +22,8 @@ if (process.env.NODE_ENV === 'development') {
 
 // BODY Parser
 app.use(express.json());
+
+app.use(cors());
 
 app.use('/api/products', products);
 app.use('/api/users', users);

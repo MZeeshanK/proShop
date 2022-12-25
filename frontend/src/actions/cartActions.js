@@ -5,9 +5,10 @@ import {
   CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
 } from '../constants/cartConstants';
+import { URL } from '../constants/urlConstant';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/products/${id}`);
+  const { data } = await axios.get(`${URL}/api/products/${id}`);
 
   const { _id, name, image, price, countInStock } = data;
 
