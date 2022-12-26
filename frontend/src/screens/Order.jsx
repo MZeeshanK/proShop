@@ -16,6 +16,7 @@ import {
   ORDER_DELIVER_RESET,
 } from '../constants/orderConstants';
 import { CART_ITEM_RESET } from '../constants/cartConstants';
+import { URL } from '../constants/urlConstant';
 
 const Order = () => {
   const dispatch = useDispatch();
