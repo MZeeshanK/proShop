@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Header from './components/Header';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import { Container } from 'react-bootstrap';
 import Home from './screens/Home';
 import Product from './screens/Product';
@@ -69,7 +69,7 @@ function App() {
             </Routes>
           </Container>
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </PayPalScriptProvider>
   );
